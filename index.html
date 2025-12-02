@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坦克300：暗夜游骑兵 | 官方改装方案</title>
+    <style>
+        :root {
+            --neon-blue: #00f0ff;
+            --neon-red: #ff2a2a; /* 新增警示红，用于强调 */
+            --dark-bg: #050505;
+            --card-bg: #121212;
+            --text-main: #ffffff;
+            --text-sub: #b0b0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--dark-bg); 
+            color: var(--text-main); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            overflow-x: hidden; 
+            line-height: 1.5;
+        }
+
+        /* --- 1. Hero Section (视觉冲击区) --- */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6) contrast(1.2); /* 增加对比度，压暗背景 */
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), var(--dark-bg));
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+            max-width: 90%;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* 战术风格标签 */
+        .tagline {
+            font-family: "SF Mono", "Consolas", "Courier New", monospace; /* 等宽字体 */
+            font-size: 1rem;
+            color: var(--neon-blue);
+            background: rgba(0, 240, 255, 0.1);
+            padding: 5px 15px;
+            border: 1px solid var(--neon-blue);
+            display: inline-block;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* 暴力主标题 */
+        h1 {
+            font-size: 4rem; /* 巨大化 */
+            font-weight: 900; /* 最粗 */
+            font-style: italic; /* 速度感 */
+            text-transform: uppercase;
+            letter-spacing: -2px; /* 紧凑感 */
+            margin-bottom: 15px;
+            line-height: 1;
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* 副标题 */
+        .hero-sub {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 4px; /* 电影感字间距 */
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* --- 2. 痛点部分 (文字排版优化) --- */
+        .section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .text-center { text-align: center; }
+
+        h2 { 
+            font-size: 2.8rem; 
+            font-weight: 800; 
+            margin-bottom: 30px; 
+            color: var(--text-main);
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+        
+        /* 强调关键词 */
+        .highlight { color: var(--neon-blue); }
+        .highlight-red { color: var(--neon-red); }
+
+        p { 
+            color: var(--text-sub); 
+            font-size: 1.2rem; 
+            line-height: 1.8; 
+            max-width: 700px; 
+            margin: 0 auto; 
+            font-weight: 400;
+        }
+
+        /* --- 3. 方案亮点 (卡片升级) --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 4px; /* 硬朗直角 */
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 280px; /* 图片更高，更有冲击力 */
+            object-fit: cover;
+            filter: grayscale(20%); /* 略微降低饱和度，更高级 */
+            transition: filter 0.3s;
+            background-color: #222;
+        }
+        
+        .card:hover .card-img { filter: grayscale(0%); }
+
+        .card-body { padding: 30px; }
+        
+        .card-title { 
+            font-size: 1.6rem; 
+            font-weight: 800;
+            margin-bottom: 15px; 
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 24px;
+            background: var(--neon-blue);
+            margin-right: 15px;
+            transform: skew(-20deg); /* 斜切装饰 */
+        }
+
+        .card p {
+            font-size: 1rem;
+            text-align: left;
+            margin: 0;
+            color: #888;
+        }
+        
+        .card b { color: #fff; font-weight: 600; }
+
+        /* --- 4. 报价清单 (工业表格风) --- */
+        .menu-list {
+            background: #0a0a0a;
+            padding: 40px;
+            border: 1px solid #333;
+            position: relative;
+        }
+        
+        /* 装饰性边角 */
+        .menu-list::after {
+            content: "CONFIDENTIAL // PRICING";
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--dark-bg);
+            padding: 0 10px;
+            font-family: monospace;
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px dashed #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .price-total {
+            margin-top: 40px;
+            font-size: 2rem;
+            color: var(--neon-blue);
+            text-align: right;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -1px;
+        }
+
+        /* --- 5. AR 按钮 (核按钮风格) --- */
+        .ar-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--text-main); /* 纯白按钮，反差极大 */
+            color: #000;
+            font-weight: 900;
+            padding: 25px 60px;
+            text-decoration: none;
+            font-size: 1.6rem;
+            margin-top: 40px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%); /* 多边形切割 */
+        }
+
+        .ar-btn:hover { 
+            background: var(--neon-blue); 
+            transform: scale(1.02);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
+        }
+
+        /* --- 移动端适配 --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+            .hero-sub { font-size: 1rem; letter-spacing: 2px; }
+            .section { padding: 60px 20px; }
+            .ar-btn { width: 100%; padding: 20px; font-size: 1.3rem; }
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section">
+        <video class="video-bg" autoplay muted loop playsinline poster="img_car_side.jpg">
+            <source src="video_hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="tagline">TANK 300 // DARK RANGER</div>
+            <h1>暗夜游骑兵</h1>
+            <p class="hero-sub">原厂只是半成品 · 这才是完全体</p>
+        </div>
+    </div>
+
+    <div class="section text-center">
+        <h2>别让你的野兽，<br>困在<span class="highlight-red">“素车”</span>的牢笼里。</h2>
+        <p>拒绝千篇一律的“汽配城”风格。<br>我们要的不是改装，是 <b style="color:#fff">基因重组</b>。<br>硬核、冷峻、不可一世。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="text-center">三大核心战术升级</h2>
+        <div class="grid-container">
+            <div class="card">
+                <img src="img_car_side.jpg" alt="全车黑化" class="card-img">
+                <div class="card-body">
+                    <div class="card-title">光学隐身</div>
+                    <p>进口哑光电光黑。<b>吸光率 MAX</b>。在黑夜中潜行，只留给路人一个无法追逐的背影。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img_wheel.jpg" alt="行走系统" class="card-img">
+                <div class="card-body">
+                    <div class="card-title">暴力抓地</div>
+                    <p>17寸防脱圈竞技轮毂 + BFGoodrich AT胎。不仅是更宽的姿态，更是<b>碾压路面</b>的权力。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img_roof.jpg" alt="拓展系统" class="card-img">
+                <div class="card-body">
+                    <div class="card-title">战术重装</div>
+                    <p>定制重载车顶平台 + 侧爬梯。告别“诗和远方”的矫情，装载真正的<b>硬汉装备</b>。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="menu-list">
+            <h2 class="text-center" style="margin-bottom: 40px; font-size: 2rem;">装备清单</h2>
+            <div class="menu-item"><span>防脱圈竞技轮毂 x5</span> <span>含安装调试</span></div>
+            <div class="menu-item"><span>BFGoodrich KO2 AT胎 x5</span> <span>含动平衡</span></div>
+            <div class="menu-item"><span>进口哑光电光黑改色膜</span> <span>质保3年</span></div>
+            <div class="menu-item"><span>重载车顶平台 (含扰流板)</span> <span>无损安装</span></div>
+            <div class="menu-item"><span>铝合金侧爬梯</span> <span>承重100KG</span></div>
+            <div class="price-total">打包价：店内咨询 (面议)</div>
+        </div>
+    </div>
+
+    <div class="section text-center" style="padding-bottom: 120px;">
+        <h2>不信图片？直接上车。</h2>
+        <p style="margin-bottom: 30px; font-size: 1.1rem;">无需废话。点击下方按钮，<br>用 AR 把这套装备 <span class="highlight">“焊”</span> 在你车上。</p>
+        
+        <a href="model_wheel.usdz" rel="ar" class="ar-btn">
+            👁‍🗨 立即 AR 试装
+        </a>
+    </div>
+
+</body>
+</html>
